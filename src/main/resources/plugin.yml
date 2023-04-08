@@ -1,0 +1,9 @@
+name: Api
+version: '${project.version}'
+main: dev.roxxion.api.Main
+prefix: R-Api
+load: STARTUP
+authors: [ Roxxion ]
+description: Personal API for own plugins
+website: https://roxxion.dev
+
