@@ -1,9 +1,9 @@
 name: Api
 version: '${project.version}'
 main: dev.roxxion.api.Main
+api-version: 1.20
 prefix: R-Api
 load: STARTUP
 authors: [ Roxxion ]
 description: Personal API for own plugins
-website: https://roxxion.dev
-
+website: https://hiojam.com

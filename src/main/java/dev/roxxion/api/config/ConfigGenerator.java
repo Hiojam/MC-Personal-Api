@@ -1,6 +1,5 @@
 package dev.roxxion.api.config;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -8,6 +7,9 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+/**
+ * Clase para generar archivos de configuración
+ */
 public class ConfigGenerator extends CommentConfig {
 
     private final String fileName;
@@ -112,7 +114,8 @@ public class ConfigGenerator extends CommentConfig {
 
     @Override
     public void load(File file) throws IOException, InvalidConfigurationException{
-        Validate.notNull(file, "File cannot be null");
+        if (file == null)
+            return;
         FileInputStream stream = new FileInputStream(file);
         this.load(new InputStreamReader(stream, StandardCharsets.UTF_8));
     }

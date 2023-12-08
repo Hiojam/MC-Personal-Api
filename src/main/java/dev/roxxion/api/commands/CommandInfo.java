@@ -6,6 +6,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class CommandInfo extends BukkitCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String alias, String[] args){
+        if (tabCompletion == null)
+            return new ArrayList<>();
+
         try {
             CommandContext context = new CommandContext(sender, args, this);
             return (List<String>) tabCompletion.invoke(object, context);
