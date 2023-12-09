@@ -13,7 +13,7 @@ import java.util.List;
 public class ItemBuilder {
 
     private final ItemStack itemStack;
-    private String name;
+    private String name, localizedName;
     private List<String> lore;
     private boolean unbreakable = false;
     private int amount;
@@ -34,6 +34,7 @@ public class ItemBuilder {
             this.name = meta.getDisplayName();
             this.lore = meta.getLore();
             this.unbreakable = meta.isUnbreakable();
+            this.localizedName = meta.getLocalizedName();
             this.flags = new ArrayList<>(meta.getItemFlags());
         }
     }
@@ -89,6 +90,11 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder setLocalizedName(String name){
+        this.localizedName = name;
+        return this;
+    }
+
     public ItemStack build(){
         ItemStack item = this.itemStack;
         ItemMeta meta = item.getItemMeta();
@@ -97,6 +103,7 @@ public class ItemBuilder {
         if(this.name != null) meta.setDisplayName(this.name);
         if(this.lore != null) meta.setLore(this.lore);
         if(this.amount != 0) item.setAmount(this.amount);
+        if(this.localizedName != null) meta.setLocalizedName(this.localizedName);
         meta.setUnbreakable(this.unbreakable);
         if(!this.flags.isEmpty()) flags.forEach(meta::addItemFlags);
 
