@@ -7,8 +7,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class Menu implements InventoryHolder {
 
@@ -59,25 +63,28 @@ public abstract class Menu implements InventoryHolder {
 
     protected ItemStack createCustomSkull(String name, List<String> lore, String head){
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
-        SkullMeta itemmeta = (SkullMeta) item.getItemMeta();
+        SkullMeta itemMeta = (SkullMeta) item.getItemMeta();
 
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-        profile.getProperties().put("textures", new Property("textures", head));
-        Field field;
-        try {
-            field = itemmeta.getClass().getDeclaredField("profile");
-            field.setAccessible(true);
-            field.set(itemmeta, profile);
-        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException x){
-            x.printStackTrace();
+        if (itemMeta == null)
+            return null;
+
+        PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID(), null);
+
+        URL url;
+        try{
+            url = new URL("https://textures.minecraft.net/texture/" + head);
+        }catch (MalformedURLException e) {
+            return null;
         }
+        profile.getTextures().setSkin(url);
+        itemMeta.setOwnerProfile(profile);
+
         if (lore != null)
-            itemmeta.setLore(lore);
-        itemmeta.setDisplayName(name);
+            itemMeta.setLore(lore);
 
-        item.setItemMeta(itemmeta);
-        return item;
+        itemMeta.setDisplayName(name);
 
+        item.setItemMeta(itemMeta);
         return item;
     }
 }
