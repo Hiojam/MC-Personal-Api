@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class FileUtils {
 
     private final String dataFolder;
@@ -44,7 +45,7 @@ public class FileUtils {
         return objects;
     }
 
-    public <T> void createFile(String prevPath, String fileName, Class<T> clazz){
+    public <T> void createFile(String prevPath, String fileName, Object object){
         String path = dataFolder+prevPath;
         File file = new File(path, fileName);
 
@@ -63,7 +64,7 @@ public class FileUtils {
             }
         }
 
-        setDefaultOptionsFromClass(clazz, file);
+        setDefaultOptionsFromClass(object, file);
     }
 
     public <T> Object getObject(File file, Class<T> clazz){
@@ -75,10 +76,10 @@ public class FileUtils {
         }
     }
 
-    private void setDefaultOptionsFromClass(Class<?> clazz, File file){
+    private void setDefaultOptionsFromClass(Object object, File file){
         try {
             FileWriter f = new FileWriter(file);
-            String json = gson.toJson(clazz);
+            String json = gson.toJson(object);
 
             f.write(json);
             f.flush();
