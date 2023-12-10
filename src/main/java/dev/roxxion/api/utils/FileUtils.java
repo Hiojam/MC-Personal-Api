@@ -67,7 +67,7 @@ public class FileUtils {
         setDefaultOptionsFromClass(object, file);
     }
 
-    public <T> Object getObject(File file, Class<T> clazz){
+    public <T> T getObject(File file, Class<T> clazz){
         try {
             FileReader reader = new FileReader(file);
             return gson.fromJson(reader, clazz);
