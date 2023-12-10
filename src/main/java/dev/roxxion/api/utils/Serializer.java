@@ -12,6 +12,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * A class containing methods for serializing and deserializing player inventories.
+ */
 public class Serializer {
 
     /**
@@ -19,7 +22,6 @@ public class Serializer {
      *
      * @param playerInventory to turn into an array of strings.
      * @return Array of strings: [ main content, armor content ]
-     * @throws IllegalStateException
      */
     public String[] playerInventoryToBase64(PlayerInventory playerInventory) throws IllegalStateException {
         //get the main content part, this doesn't return the armor
@@ -100,7 +102,7 @@ public class Serializer {
     /**
      *
      * A method to get an {@link Inventory} from an encoded, Base64, string.
-     *
+     * <p>
      * <p />
      *
      * Special thanks to Comphenix in the Bukkit forums or also known
